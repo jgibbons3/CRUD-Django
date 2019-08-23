@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'Crud/style.css' %}" />
+
+</head>
+<body>
+  
+    {% if messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <ul class="messages">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        {% for message in messages %}
+        <li  {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    </div>
+    {% endif %}
+  
+
+  <header id="FormList">
+    <h1>Contact List 
+      <a href="/add/">
+        <button type="button" class="btn btn-primary" value="Add">Add New Contact</button> 
+      </a>
+    </h1> <br>
+    </header>
+    <div class="table-responsive-sm">
+      <table class="table table-striped table-bordered table-sm">
+       <thead class="thead-dark">
+        <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Mobile</th>
+        <th scope="col">Email</th>
+        <th scope="col">Address</th>
+        <th scope="col">Actions</th>
+        </tr>
+       </thead>
+      {% for nombre in data %}
+      <tr>
+        <th>{{nombre.name}}</th>
+        <th>{{nombre.apellido}}</th> 
+        <th>{{nombre.edad}}</th> 
+        <th>{{nombre.telefono}}</th> 
+        <th>{{nombre.email}}</th> 
+        <th>{{nombre.domicilio}}</th> 
+        <th><a href="/usuarioUpdate/{{nombre.id}}/"><button class="btn btn-outline-primary" value="Modify">Modify</button></a> 
+        <button class="btn btn-outline-primary" data-toggle="modal" value="Delete" data-target="#exampleModal-{{nombre.id}}">Delete</button></th>
+      
+      <div class="modal fade" id="exampleModal-{{nombre.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this contact?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <a href="/usuarioDelete/{{nombre.id}}/"><button type="button" class="btn btn-primary" value="Delete">Yes</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+      
+      </tr>
+      {% endfor %}
+
+      </table>
+
+    <div class="pagination">
+    <span class="step-links">
+        {% if data.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ data.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ data.number }} of {{ data.paginator.num_pages }}.
+        </span>
+
+        {% if data.has_next %}
+            <a href="?page={{ data.next_page_number }}">next</a>
+            <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+        
+</body>
+</html>

@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"  href="{% static 'Crud/style.css' %}"/>
+</head>
+<body>
+    <form method="POST" id="miformulario" autocomplete="off"> {% csrf_token %}
+      <div class="container">  
+    <br>
+      <div class="form-group row">  
+        <label font="20" class="col-sm-1 col-form-label"></label>  
+        <div class="col-sm-4">  
+         <h2>Contact Form</h2>  
+        </div>  
+      </div>      
+        
+        <div class="form-group row">
+        <label class="col-sm-1 col-form-label">Name:</label>
+        <div class="col-sm-4">
+            <input name="name" type="text" class="form-control" value="{{ form.name.value|default_if_none:'' }}">
+        </div>
+                
+        <label class="col-sm-1 col-form-label">Last Name:</label>
+        <div class="col-sm-4">
+            <input name="apellido" type="text" class="form-control" value="{{ form.apellido.value|default_if_none:'' }}">
+        </div>
+        </div>
+
+
+        <div class="form-group row">
+        <label class="col-sm-1 col-form-label">Age:</label>
+        <div class="col-sm-4">
+            <input name="edad" type="number" class="form-control" value="{{ form.edad.value|default_if_none:'' }}">
+        </div>
+        
+        <label class="col-sm-1 col-form-label">Mobile:</label>
+        <div class="col-sm-4">
+            <input name="telefono" type="tel" class="form-control" value="{{ form.telefono.value|default_if_none:'' }}">
+        </div>
+        </div>
+            
+        <div class="form-group row">
+        <label class="col-sm-1 col-form-label">Email:</label>
+        <div class="col-sm-5">    
+            <input name="email" type="email" class="form-control" value="{{ form.email.value|default_if_none:'' }}">
+        </div>     
+        </div>
+
+        <div class="form-group row"> 
+        <label class="col-sm-1 col-form-label">Address:</label>
+        <div class="col-sm-5">
+            <input name="domicilio" type="text" class="form-control" value="{{ form.domicilio.value|default_if_none:'' }}">
+        </div>
+        </div>
+
+        
+        
+        <div class="form-group row">  
+        <label class="col-sm-1 col-form-label"></label>  
+        <div class="col-sm-4"> 
+            <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+        </div>
+    </form>
+</body>
+</html>
